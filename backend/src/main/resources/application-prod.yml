@@ -10,12 +10,12 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: ENC(xT/+ETVuCqWMxRmTRO90f0bJaT6oIsj7Xh4j7y6jRzwaihmTd6dnCRW2XDEToNLpxrhV1wtMwCBeOObwAfscEnTkshzdo++Ta82nMRL8xw7iMlTsbJzfug==)
       username: ENC(hUSFqr+kl28AIVDKBfyRHA==)
-      password: ENC(yjnFbKAlVVvzzQuWNECa7DcpWubhBn0Q)
+      password: ENC(h+KCgHzWodMO7mdSt9Zjn+WIsq5Uuiuv)
     read:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: ENC(xT/+ETVuCqWMxRmTRO90f0bJaT6oIsj7Xh4j7y6jRzwaihmTd6dnCRW2XDEToNLpxrhV1wtMwCBeOObwAfscEnTkshzdo++Ta82nMRL8xw7iMlTsbJzfug==)
       username: ENC(hUSFqr+kl28AIVDKBfyRHA==)
-      password: ENC(yjnFbKAlVVvzzQuWNECa7DcpWubhBn0Q)
+      password: ENC(h+KCgHzWodMO7mdSt9Zjn+WIsq5Uuiuv)
   flyway:
     baseline-version: 1
 
