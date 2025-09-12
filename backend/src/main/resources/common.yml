@@ -52,9 +52,9 @@ kakao:
   admin-key: ENC(84d9WaXe+iSolXJ9wIEbJmFEBzeLkgbcP5zkLBRCUJk/Yyic9vwITdVeRArDlFoQ)
 
 management:
-  metrics:
-    enable:
-      processor: false
+  health:
+    db:
+      enabled: false
 
 api-call:
   page: ENC(bDtVlLbmI0dmF9v3SFpquBZiPStB9d13/2invvZIxOcs+UdEvexTOpTl+jtHzxjY)
