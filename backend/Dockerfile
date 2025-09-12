@@ -6,7 +6,7 @@ ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 
 ENV JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
 
-ENV JAVA_OPTS="-Djdk.management.cgroup=disabled"
+#ENV JAVA_OPTS="-Djdk.management.cgroup=disabled"
 
 COPY ${JAR_FILE} ody-backend.jar
 
