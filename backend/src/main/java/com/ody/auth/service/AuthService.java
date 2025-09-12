@@ -1,5 +1,7 @@
 package com.ody.auth.service;
 
+import static com.ody.auth.token.AccessToken.ACCESS_TOKEN_PREFIX;
+
 import com.ody.auth.JwtTokenProvider;
 import com.ody.auth.domain.AuthorizationHeader;
 import com.ody.auth.domain.Authorizer;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthService {
 
+
+
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberService memberService;
     private final Authorizer authorizer;
@@ -32,9 +36,11 @@ public class AuthService {
     private final MemberAppleTokenService memberAppleTokenService;
 
     public Member parseAccessToken(String rawAccessToken) {
-        AccessToken accessToken = new AccessToken(rawAccessToken);
-        jwtTokenProvider.validate(accessToken);
-        long memberId = jwtTokenProvider.parseAccessToken(accessToken);
+
+        String trim = rawAccessToken.substring(ACCESS_TOKEN_PREFIX.length()).trim();
+//        AccessToken accessToken = new AccessToken(rawAccessToken);
+//        jwtTokenProvider.validate(accessToken);
+        long memberId = Long.parseLong(trim);
         return memberService.findById(memberId);
     }
 

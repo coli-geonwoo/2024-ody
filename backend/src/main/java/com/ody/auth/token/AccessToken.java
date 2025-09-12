@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 public class AccessToken implements JwtToken {
 
-    private static final String ACCESS_TOKEN_PREFIX = "Bearer access-token=";
+    public static final String ACCESS_TOKEN_PREFIX = "Bearer access-token=";
 
     private final String value;
 
