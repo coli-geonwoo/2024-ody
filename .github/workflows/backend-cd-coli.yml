@@ -73,7 +73,7 @@ jobs:
           export DOCKERHUB_REPOSITORY=$DOCKERHUB_REPOSITORY
           export PROD_MYSQL_PASSWORD=${{ secrets.TEST_MYSQL_PASSWORD }}
           export JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_PASSWORD }}
-          export TAG=${{ github.sha }}-prod_v2
+          export TAG=${{ github.sha }}-coli
           docker compose up -d
 
 
