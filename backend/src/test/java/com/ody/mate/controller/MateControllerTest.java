@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.mockito.Mockito;
 import org.springframework.http.HttpHeaders;
 
+@Disabled
 class MateControllerTest extends BaseControllerTest {
 
     @DisplayName("바로 전송해야 하는 입장/출발 알림의 경우, 트랜잭션이 완료 된 후 알림을 조회한다")

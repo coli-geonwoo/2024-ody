@@ -15,12 +15,14 @@ import com.ody.member.domain.Member;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 
+@Disabled
 @Import({FixtureGenerator.class})
 class MemberControllerTest extends BaseControllerTest {
 

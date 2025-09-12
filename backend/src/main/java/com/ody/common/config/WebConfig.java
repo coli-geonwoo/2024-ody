@@ -3,6 +3,7 @@ package com.ody.common.config;
 import com.ody.auth.service.AuthService;
 import com.ody.common.argumentresolver.AuthMemberArgumentResolver;
 import com.ody.common.interceptor.LoggingInterceptor;
+import com.ody.member.service.MemberService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,11 +22,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final AuthService authService;
 
+    private final MemberService memberService;
+
     private final LoggingInterceptor loggingInterceptor;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new AuthMemberArgumentResolver(authService));
+        resolvers.add(new AuthMemberArgumentResolver(authService, memberService));
     }
 
     @Override
