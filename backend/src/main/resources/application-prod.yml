@@ -1,7 +1,7 @@
 spring:
   data:
     redis:
-      host: ENC(PVKvciQc1sOpWEI1689U8dFqwr1MskJXy88Q8u6LP6MF1CjGA2j+WfJ3L8hkLUSQTiQcbQ3TJGbmyp+W77BkDA8OJ62XX8dE)
+      host: ENC(kufQiJ3iE16ijM5rWwRw+5oB6DHm2H3QWgX+MIio6dsCxR7iL8IAGOyt6+ArdCQPbRYEDQgGEQJS0SZVYPR0fUuFRLDwkIEm)
   jpa:
     hibernate:
       ddl-auto: validate
