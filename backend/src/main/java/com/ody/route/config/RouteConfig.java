@@ -3,6 +3,7 @@ package com.ody.route.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ody.route.service.GoogleRouteClient;
 import com.ody.route.service.OdsayAppRouteClient;
+import com.ody.route.service.OdySayProperties;
 import com.ody.route.service.RouteClient;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,20 @@ import org.springframework.web.client.RestClient;
 @Profile("!test")
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties(RouteClientProperties.class)
+@EnableConfigurationProperties({RouteClientProperties.class, OdySayProperties.class})
 public class RouteConfig {
 
     private static final Duration DEFAULT_CONNECTION_TIMEOUT = Duration.ofSeconds(60);
     private static final Duration DEFAULT_READ_TIMEOUT = Duration.ofSeconds(30);
 
     private final RouteClientProperties properties;
+    private final OdySayProperties odsayProperties;
 
     @Bean
     @Order(1)
     public RouteClient odysayRouteClient(ObjectMapper objectMapper) {
         RouteClientProperty property = properties.getProperty("odsay");
-        return new OdsayAppRouteClient(property, builder(objectMapper));
+        return new OdsayAppRouteClient(odsayProperties, property, builder(objectMapper));
     }
 
     @Bean

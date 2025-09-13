@@ -2,6 +2,7 @@ package com.ody.common;
 
 import com.ody.route.config.RouteClientProperties;
 import com.ody.route.config.RouteClientProperty;
+import com.ody.route.service.OdySayProperties;
 import com.ody.route.service.RouteClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
-@EnableConfigurationProperties(RouteClientProperties.class)
+@EnableConfigurationProperties({RouteClientProperties.class, OdySayProperties.class})
 public abstract class BaseRouteClientTest {
 
     @Autowired
@@ -24,6 +25,8 @@ public abstract class BaseRouteClientTest {
     protected RouteClient routeClient;
 
     protected RouteClientProperty property;
+
+    protected OdySayProperties sayProperties;
 
     @BeforeEach
     void setUp() {
