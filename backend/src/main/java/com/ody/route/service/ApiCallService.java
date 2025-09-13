@@ -56,6 +56,7 @@ public class ApiCallService {
         return apiCall.getEnabled();
     }
 
+    @Transactional
     public ApiCall findOrSaveTodayApiCallByClientType(ClientType clientType) {
         LocalDate now = LocalDate.now();
         return apiCallRepository.findByDateAndClientType(now, clientType)
