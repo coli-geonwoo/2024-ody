@@ -51,6 +51,7 @@ public class ApiCallService {
         return new ApiCallEnabledResponse(enabled);
     }
 
+    @Transactional
     public boolean getEnabledByClientType(ClientType clientType) {
         ApiCall apiCall = findOrSaveTodayApiCallByClientType(clientType);
         return apiCall.getEnabled();
