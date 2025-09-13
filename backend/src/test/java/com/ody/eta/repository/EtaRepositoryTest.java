@@ -17,6 +17,18 @@ import org.junit.jupiter.api.Test;
 
 class EtaRepositoryTest extends BaseRepositoryTest {
 
+    @DisplayName("Eta id로 남은 시간을 업데이트 한다")
+    @Test
+    void updateRemainingTimeById() {
+        Eta eta = fixtureGenerator.generateEta();
+        long before = eta.getRemainingMinutes();
+
+        etaRepository.updateRemainingTimeById(eta.getId(), 100L);
+
+        Eta updatedEta = etaRepository.findById(eta.getId()).get();
+        assertThat(updatedEta.getRemainingMinutes()).isEqualTo(100L);
+    }
+
     @DisplayName("특정 약속 참여자들의 Eta 목록을 반환한다")
     @Test
     void findAllByMeetingId() {

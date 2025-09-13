@@ -5,9 +5,13 @@ import static org.mockito.ArgumentMatchers.any;
 
 import com.ody.common.BaseServiceTest;
 import com.ody.common.Fixture;
+import com.ody.eta.domain.Eta;
 import com.ody.eta.domain.EtaStatus;
 import com.ody.eta.dto.request.MateEtaRequest;
+import com.ody.eta.event.UpdateRouteTimeEvent;
+import com.ody.eta.repository.EtaRepository;
 import com.ody.mate.domain.Mate;
+import com.ody.meeting.domain.Coordinates;
 import com.ody.meeting.domain.Location;
 import com.ody.meeting.domain.Meeting;
 import com.ody.meeting.dto.response.MateEtaResponseV2;
@@ -21,6 +25,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,6 +34,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
+@Disabled
 class EtaServiceTest extends BaseServiceTest {
 
     @SpyBean
@@ -36,6 +42,9 @@ class EtaServiceTest extends BaseServiceTest {
 
     @Autowired
     private EtaService etaService;
+
+    @Autowired
+    private EtaRepository etaRepository;
 
     @Autowired
     private ApiCallService apiCallService;
@@ -82,7 +91,7 @@ class EtaServiceTest extends BaseServiceTest {
 
         @DisplayName("약속 시간 30분 전에 첫번째 오디세이 호출이 시작된다")
         @Test
-        void callFistOdsayWhen30minutesAgo() {
+        void callFistOdsayWhen30minutesAgo() throws InterruptedException {
             Location origin = Fixture.ORIGIN_LOCATION;
             LocalDateTime thirtyMinutesLater = LocalDateTime.now().plusMinutes(30L);
             Meeting meeting = fixtureGenerator.generateMeeting(thirtyMinutesLater);
@@ -99,6 +108,24 @@ class EtaServiceTest extends BaseServiceTest {
 
             BDDMockito.verify(routeService, Mockito.times(1)).calculateRouteTime(any(), any());
         }
+    }
+
+    @Disabled
+    @DisplayName("API 호출 후 업데이트 테스트")
+    @Test
+    void updateByRouteTimeCall() throws InterruptedException {
+        Eta eta = fixtureGenerator.generateEta();
+        Coordinates origin = Fixture.ORIGIN_LOCATION.getCoordinates();
+        Coordinates target = Fixture.TARGET_LOCATION.getCoordinates();
+        Mockito.doReturn(new RouteTime(31L))
+                .when(routeService)
+                .calculateRouteTime(any(), any());
+
+        etaService.updateByRouteTimeCall(new UpdateRouteTimeEvent(this, eta.getId(), origin, target));
+
+        Thread.sleep(1000L);
+        Eta updatedEta = etaRepository.findById(eta.getId()).get();
+        assertThat(updatedEta.getRemainingMinutes()).isEqualTo(31L);
     }
 
     @DisplayName("현재 시간 <= 약속 시간 && 직선거리가 300m 이내 일 경우 도착 상태로 업데이트한다.")

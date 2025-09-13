@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface EtaRepository extends JpaRepository<Eta, Long> {
 
@@ -22,4 +23,9 @@ public interface EtaRepository extends JpaRepository<Eta, Long> {
     List<Eta> findAllByMeetingId(Long meetingId);
 
     void deleteAllByMateIn(List<Mate> mates);
+
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Transactional
+    @Query("update Eta eta set eta.remainingMinutes = :minutes where eta.id = :etaId")
+    void updateRemainingTimeById(long etaId, long minutes);
 }

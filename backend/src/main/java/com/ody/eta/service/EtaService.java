@@ -5,6 +5,7 @@ import com.ody.common.exception.OdyNotFoundException;
 import com.ody.eta.domain.Eta;
 import com.ody.eta.domain.EtaStatus;
 import com.ody.eta.dto.request.MateEtaRequest;
+import com.ody.eta.event.UpdateRouteTimeEvent;
 import com.ody.eta.repository.EtaRepository;
 import com.ody.mate.domain.Mate;
 import com.ody.meeting.domain.Coordinates;
@@ -17,10 +18,15 @@ import com.ody.util.DistanceCalculator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @EnableDeletedFilter
 @RequiredArgsConstructor
@@ -32,6 +38,8 @@ public class EtaService {
     private final RouteService routeService;
     private final EtaRepository etaRepository;
     private final EtaSchedulingService etaSchedulingService;
+    private final ApplicationEventPublisher eventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
     public Eta saveFirstEtaOfMate(Mate mate, RouteTime routeTime) {
@@ -67,12 +75,28 @@ public class EtaService {
 
         if (isRouteClientCallTime(mateEta)) {
             MDC.put("mateId", mateEta.getMate().getId().toString());
-            RouteTime routeTime = routeService.calculateRouteTime(
+            UpdateRouteTimeEvent updateRouteTimeEvent = new UpdateRouteTimeEvent(
+                    this,
+                    mateEta.getId(),
                     mateEtaRequest.toCoordinates(),
                     meeting.getTargetCoordinates()
             );
-            mateEta.updateRemainingMinutes(routeTime.getMinutes());
+            applicationEventPublisher.publishEvent(updateRouteTimeEvent);
+//            RouteTime routeTime = routeService.calculateRouteTime(
+//                    mateEtaRequest.toCoordinates(),
+//                    meeting.getTargetCoordinates()
+//            );
+//            mateEta.updateRemainingMinutes(routeTime.getMinutes());
         }
+    }
+
+    @Async("routeTimeCallExecutor")
+    @EventListener(UpdateRouteTimeEvent.class)
+    public void updateByRouteTimeCall(UpdateRouteTimeEvent event) {
+        Coordinates origin = event.getOrigin();
+        Coordinates target = event.getTarget();
+        RouteTime routeTime = routeService.calculateRouteTime(origin, target);
+        etaRepository.updateRemainingTimeById(event.getEtaId(), routeTime.getMinutes());
     }
 
     public EtaStatus findEtaStatus(Mate mate) {
