@@ -15,6 +15,7 @@ import com.ody.meeting.dto.response.MateEtaResponsesV2;
 import com.ody.route.domain.RouteTime;
 import com.ody.route.service.RouteService;
 import com.ody.util.DistanceCalculator;
+import com.ody.util.TimeUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -96,7 +97,11 @@ public class EtaService {
         Coordinates origin = event.getOrigin();
         Coordinates target = event.getTarget();
         RouteTime routeTime = routeService.calculateRouteTime(origin, target);
-        etaRepository.updateRemainingTimeById(event.getEtaId(), routeTime.getMinutes());
+        etaRepository.updateRemainingTimeById(
+                event.getEtaId(),
+                routeTime.getMinutes(),
+                TimeUtil.nowWithTrim()
+        );
     }
 
     public EtaStatus findEtaStatus(Mate mate) {

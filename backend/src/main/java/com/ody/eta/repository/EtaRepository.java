@@ -2,12 +2,12 @@ package com.ody.eta.repository;
 
 import com.ody.eta.domain.Eta;
 import com.ody.mate.domain.Mate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface EtaRepository extends JpaRepository<Eta, Long> {
@@ -26,6 +26,11 @@ public interface EtaRepository extends JpaRepository<Eta, Long> {
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
-    @Query("update Eta eta set eta.remainingMinutes = :minutes where eta.id = :etaId")
-    void updateRemainingTimeById(long etaId, long minutes);
+    @Query("""
+    update Eta eta
+    set eta.remainingMinutes = :minutes,
+        eta.lastApiCallAt = :time
+    where eta.id = :etaId
+    """)
+    void updateRemainingTimeById(long etaId, long minutes, LocalDateTime time);
 }

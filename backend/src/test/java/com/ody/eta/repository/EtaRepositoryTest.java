@@ -10,6 +10,7 @@ import com.ody.mate.domain.Mate;
 import com.ody.mate.domain.Nickname;
 import com.ody.meeting.domain.Meeting;
 import com.ody.member.domain.Member;
+import com.ody.util.TimeUtil;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -19,11 +20,10 @@ class EtaRepositoryTest extends BaseRepositoryTest {
 
     @DisplayName("Eta id로 남은 시간을 업데이트 한다")
     @Test
-    void updateRemainingTimeById() {
+    void updateRemainingTimeById() throws InterruptedException {
         Eta eta = fixtureGenerator.generateEta();
         long before = eta.getRemainingMinutes();
-
-        etaRepository.updateRemainingTimeById(eta.getId(), 100L);
+        etaRepository.updateRemainingTimeById(eta.getId(), 100L, TimeUtil.nowWithTrim());
 
         Eta updatedEta = etaRepository.findById(eta.getId()).get();
         assertThat(updatedEta.getRemainingMinutes()).isEqualTo(100L);
