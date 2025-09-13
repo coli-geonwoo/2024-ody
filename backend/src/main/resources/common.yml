@@ -60,6 +60,18 @@ kakao:
   admin-key: ENC(84d9WaXe+iSolXJ9wIEbJmFEBzeLkgbcP5zkLBRCUJk/Yyic9vwITdVeRArDlFoQ)
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,threaddump,prometheus
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: ody-prod-app
   health:
     db:
       enabled: false
