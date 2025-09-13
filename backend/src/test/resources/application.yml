@@ -28,3 +28,6 @@ route:
 
 allowed-origins:
   api-call: testOrigin
+testodsay:
+  api-keys:
+    - testkey
