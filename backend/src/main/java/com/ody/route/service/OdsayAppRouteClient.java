@@ -43,7 +43,7 @@ public class OdsayAppRouteClient implements RouteClient {
             com.devoops.vo.Coordinates mappedOrigin = mapCoordinates(origin);
             com.devoops.vo.Coordinates mappedTarget = mapCoordinates(target);
 
-            String apiKey = odsayProperties.getIndexof(loadBalanceIndex.incrementAndGet());
+            String apiKey = odsayProperties.getIndexof(loadBalanceIndex.getAndIncrement());
             long minutes = odsayRouteClient.calculateRouteMinutes(apiKey, mappedOrigin, mappedTarget);
             return new RouteTime(minutes);
         } catch (OdsayClosestPlaceException closestPlaceException) {

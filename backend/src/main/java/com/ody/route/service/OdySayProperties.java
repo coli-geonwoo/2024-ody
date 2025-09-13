@@ -1,5 +1,9 @@
 package com.ody.route.service;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Stream;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -7,13 +11,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "testodsay")
 public class OdySayProperties {
 
-    private final String[] apiKeys;
+    private final List<String> apiKeys;
 
     public OdySayProperties(String[] apiKeys) {
-        this.apiKeys = apiKeys;
-    }
+        this.apiKeys = Stream.of(apiKeys)
+                .map(key -> URLEncoder.encode(key, StandardCharsets.UTF_8))
+                .toList();}
 
     public String getIndexof(int index) {
-        return apiKeys[index % apiKeys.length];
+        return apiKeys.get(index % apiKeys.size());
     }
 }
