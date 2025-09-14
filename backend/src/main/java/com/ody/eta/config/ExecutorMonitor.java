@@ -18,7 +18,7 @@ public class ExecutorMonitor {
         this.executor = executor;
     }
 
-    @Scheduled(fixedRate = 1_000) // 1초마다 실행
+    @Scheduled(fixedRate = 10) // 10ms마다 실행
     public void logExecutorStatus() {
         var pool = executor.getThreadPoolExecutor();
         log.info("[ExecutorStatus] PoolSize={}, ActiveCount={}, CompletedTaskCount={}, QueueSize={}",
