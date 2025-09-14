@@ -41,11 +41,10 @@ auth:
 
 testodsay:
   api-keys:
-    - ENC(moYhWHJfNDRaAmbImD5cHmDf2K5cpldefy4YOqhHke38HyAQdGtMCzJxvg7So4k6AT/kpJ5M0w8=)
-    - ENC(nU1hfI4REk13/d65bGVLSeEkp8SzmuF7Yg9wZUeDWo6Ehg3K8EXFAr3WMQnGk3bGxbkESDxNHXs=)
-    - ENC(u4AQvkom0Q4cHEOUPA/MwgesKeWMiWakqKJovP2SJ9HLURLQIqY2fWFuO/2NqJpnDQ2BYowZ004=)
-    - ENC(PEBusgxumywaOYCaWe7rPlGfipIN0xS5JNuV6E7jPwDtRsUYIshit8F6FtNNQQWQqe9RVxFMmRc=)
-    - ENC(1XVCmtM8e4+EAiy+fInSXcEhb5MucfrXdUG89ZNv+jC3L8LtJqZquoOPEvbuhti93hzx20FoBzc=)
+    - ENC(060CxJdbrdoqS9I5zpaf0unxJS8BceYFES4VVjZJSbuALmYhocLaU7zMQ6bY5oxDF3UqmK2/I/U=)
+    - ENC(2+eyfQ8qSHcVGr0xrvqWCeK3+Z8krEh+rk7f5otb1ccKXCOZWCNLvagNh2zNzVWbsQRxkgmNsbw=)
+    - ENC(ws5pkqBLpCn0+KDBBvP0jsaitK7zNX5K+E+0fbTTH53tHQnsjB42rNZDn5LUZh6Y7hfnQdHa3EQ=)
+    - ENC(j7Pn0f+Vecvbxy52FyBFo4F0oFSrOZiG/1zoIxHS/tMj/XFpvYV1wW+d1RViMjFwzR2YOZDCb74=)
 
 fcm:
   config:

@@ -39,7 +39,6 @@ public class EtaService {
     private final RouteService routeService;
     private final EtaRepository etaRepository;
     private final EtaSchedulingService etaSchedulingService;
-    private final ApplicationEventPublisher eventPublisher;
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional

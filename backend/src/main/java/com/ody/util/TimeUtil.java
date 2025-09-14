@@ -2,6 +2,7 @@ package com.ody.util;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,8 @@ public class TimeUtil {
     public static final ZoneOffset KST_OFFSET = ZoneOffset.ofHours(9);
 
     public static LocalDateTime nowWithTrim() {
-        return trimSecondsAndNanos(LocalDateTime.now());
+        ZoneId zoneId = ZoneId.of("Asia/Seoul");
+        return trimSecondsAndNanos(LocalDateTime.now(zoneId));
     }
 
     public static LocalDateTime trimSecondsAndNanos(LocalDateTime time) {
