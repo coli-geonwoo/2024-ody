@@ -1,20 +1,30 @@
 package com.ody.common.ping;
 
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
+@Slf4j
 @Component
-public class WarmUpRunner implements ApplicationRunner {
-    private final RestTemplate restTemplate = new RestTemplate();
+public class WarmUpRunner {
 
-    @Override
-    public void run(ApplicationArguments args) {
-        for (int i = 0; i < 50; i++) {
+    private final ThreadPoolTaskExecutor executor;
+
+    public WarmUpRunner(
+            @Qualifier("routeTimeCallExecutor") ThreadPoolTaskExecutor executor
+    ) {
+        this.executor = executor;
+    }
+
+    public void run() {
+        for (int i = 0; i < 1000; i++) {
             try {
-                restTemplate.getForObject("http://localhost:8080/health", String.class);
-            } catch (Exception ignored) {}
+                executor.execute(() -> {
+                    log.info("WarmUpRunner run start");
+                });
+            } catch (Exception ignored) {
+            }
         }
     }
 }

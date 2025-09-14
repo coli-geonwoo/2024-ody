@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PingController {
 
-    private final MeetingRepository meetingRepository;
-    private final EtaRepository etaRepository;
-    private final MateRepository mateRepository;
+    private final WarmUpRunner warmUpRunner;
 
     @GetMapping("/coli")
     public String ping() {
@@ -22,15 +20,7 @@ public class PingController {
 
     @GetMapping("/warm-up")
     public String warmUp() {
-        for (int i = 1; i < 41; i++) {
-            meetingRepository.findById((long) i);
-        }
-
-        for (int i = 1; i < 101; i++) {
-            mateRepository.findById((long) i);
-            etaRepository.findById((long) i);
-        }
-
+       warmUpRunner.run();
         return "warmup-done";
     }
 }
