@@ -21,6 +21,11 @@ public class ExecutorMonitor {
     @Scheduled(fixedRate = 10) // 10ms마다 실행
     public void logExecutorStatus() {
         var pool = executor.getThreadPoolExecutor();
+        for (int i = 0; i < executor.getCorePoolSize(); i++) {
+            pool.submit(() -> {
+                try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+            });
+        }
         log.info("[ExecutorStatus] PoolSize={}, ActiveCount={}, CompletedTaskCount={}, QueueSize={}",
                 pool.getPoolSize(),
                 pool.getActiveCount(), //실행중인 작업 수
