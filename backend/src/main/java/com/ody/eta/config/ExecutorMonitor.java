@@ -1,5 +1,6 @@
 package com.ody.eta.config;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,16 +22,23 @@ public class ExecutorMonitor {
     @Scheduled(fixedRate = 10) // 10ms마다 실행
     public void logExecutorStatus() {
         var pool = executor.getThreadPoolExecutor();
-        for (int i = 0; i < executor.getCorePoolSize(); i++) {
-            pool.submit(() -> {
-                try { Thread.sleep(50); } catch (InterruptedException ignored) {}
-            });
-        }
+
         log.info("[ExecutorStatus] PoolSize={}, ActiveCount={}, CompletedTaskCount={}, QueueSize={}",
                 pool.getPoolSize(),
                 pool.getActiveCount(), //실행중인 작업 수
                 pool.getCompletedTaskCount(), //완료 한 작업
                 pool.getQueue().size()); //대기 중인 작업
+    }
+
+    @PostConstruct
+    void init() {
+        var pool = executor.getThreadPoolExecutor();
+
+        for (int i = 0; i < executor.getCorePoolSize(); i++) {
+            pool.submit(() -> {
+                try { Thread.sleep(50); } catch (InterruptedException ignored) {}
+            });
+        }
     }
 }
 
