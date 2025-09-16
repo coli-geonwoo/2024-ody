@@ -31,14 +31,14 @@ public class RouteConfig {
     private final OdySayProperties odsayProperties;
 
     @Bean
-    @Order(1)
+    @Order(2)
     public RouteClient odysayRouteClient(ObjectMapper objectMapper) {
         RouteClientProperty property = properties.getProperty("odsay");
         return new OdsayAppRouteClient(odsayProperties, property, builder(objectMapper));
     }
 
     @Bean
-    @Order(2)
+    @Order(1)
     public RouteClient googleRouteClient(ObjectMapper objectMapper) {
         RouteClientProperty property = properties.getProperty("google");
         return new GoogleRouteClient(property, builder(objectMapper));
