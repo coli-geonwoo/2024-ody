@@ -46,6 +46,7 @@ public class ApiCallService {
         apiCall.increaseCount();
     }
 
+    @Transactional
     public ApiCallEnabledResponse getApiCallEnabled(ClientType clientType) {
         boolean enabled = getEnabledByClientType(clientType);
         return new ApiCallEnabledResponse(enabled);
