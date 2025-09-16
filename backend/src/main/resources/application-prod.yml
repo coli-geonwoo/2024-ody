@@ -20,11 +20,11 @@ spring:
     baseline-version: 1
 
 
-#server:
-#  tomcat:
-#    threads:
-#      max: 100          # maxThreads
-#      min-spare: 20
+server:
+  tomcat:
+    threads:
+      max: 100          # maxThreads
+      min-spare: 20
 
 log:
   file:
