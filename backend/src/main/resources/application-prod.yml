@@ -23,8 +23,8 @@ spring:
 server:
   tomcat:
     threads:
-      max: 100          # maxThreads
-      min-spare: 20
+      max: 120          # maxThreads
+      min-spare: 50
 
 log:
   file:
