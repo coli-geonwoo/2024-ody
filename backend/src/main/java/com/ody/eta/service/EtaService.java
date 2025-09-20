@@ -92,7 +92,6 @@ public class EtaService {
 
     @Async("routeTimeCallExecutor")
     @EventListener(UpdateRouteTimeEvent.class)
-    @Transactional
     public void updateByRouteTimeCall(UpdateRouteTimeEvent event) {
         Coordinates origin = event.getOrigin();
         Coordinates target = event.getTarget();

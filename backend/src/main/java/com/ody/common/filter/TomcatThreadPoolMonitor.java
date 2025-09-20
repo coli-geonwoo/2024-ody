@@ -21,7 +21,7 @@ public class TomcatThreadPoolMonitor implements WebServerFactoryCustomizer<Tomca
         factory.addConnectorCustomizers(connector -> this.connector = connector);
     }
 
-    @Scheduled(fixedRate = 100) // 1초마다 실행
+    @Scheduled(fixedRate = 1000) // 1초마다 실행
     public void logThreadPoolStatus() {
         if (connector == null) return;
         ProtocolHandler handler = connector.getProtocolHandler();
