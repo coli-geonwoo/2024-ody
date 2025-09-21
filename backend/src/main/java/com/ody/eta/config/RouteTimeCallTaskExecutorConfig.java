@@ -15,9 +15,9 @@ public class RouteTimeCallTaskExecutorConfig {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         int coreCount = Runtime.getRuntime().availableProcessors();
         executor.setCorePoolSize(coreCount * 2);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(50);
-        executor.setKeepAliveSeconds(10);
+        executor.setMaxPoolSize(120);
+        executor.setQueueCapacity(0);
+        executor.setKeepAliveSeconds(2);
         executor.setThreadNamePrefix("route-time-call-task-executor-");
         executor.setRejectedExecutionHandler(new java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
