@@ -5,12 +5,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-      jdbc:
-        batch_size: 100
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#      jdbc:
+#        batch_size: 100
   datasource:
     write:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,11 +26,11 @@ spring:
     baseline-version: 1
 
 
-server:
-  tomcat:
-    threads:
-      max: 120          # maxThreads
-      min-spare: 50
+#server:
+#  tomcat:
+#    threads:
+#      max: 120          # maxThreads
+#      min-spare: 50
 
 log:
   file:
