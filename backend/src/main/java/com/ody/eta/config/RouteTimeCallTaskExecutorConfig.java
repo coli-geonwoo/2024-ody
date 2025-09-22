@@ -14,7 +14,7 @@ public class RouteTimeCallTaskExecutorConfig {
     public ThreadPoolTaskExecutor spikeThreadPool(MeterRegistry meterRegistry) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         int coreCount = Runtime.getRuntime().availableProcessors();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(20);
         executor.setMaxPoolSize(120);
         executor.setQueueCapacity(0);
         executor.setKeepAliveSeconds(2);
